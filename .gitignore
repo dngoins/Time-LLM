@@ -1,5 +1,6 @@
 # ignore all files in lib directory
 lib/*
+Library/*
 
 # ignore all .exe files
 *.exe
