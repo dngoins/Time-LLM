@@ -7,3 +7,9 @@ Library/*
 
 #ignore all files in dataset directory
 dataset/*
+
+share/*
+
+# ignore all *.bat in scripts directory
+scripts/
+*.bat
