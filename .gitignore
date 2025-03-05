@@ -1,0 +1,8 @@
+# ignore all files in lib directory
+lib/*
+
+# ignore all .exe files
+*.exe
+
+#ignore all files in dataset directory
+dataset/*

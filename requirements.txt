@@ -1,23 +1,26 @@
+# requires libuvc
 # pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+
+ 
+ # use this instead
+ #pip3 install torch==2.3.0 torchvision==0.18.0 torchaudio==2.3.0 --index-url https://download.pytorch.org/whl/cu118
 
 # first install pytorch with command above
 # this worked with python version 3.12.5
 # use pip3 install -r requirements.txt to install all dependencies
-torch 
-torchvision 
-torchaudio
+torch==2.3.0 
+torchvision==0.18.0
+torchaudio==2.3.0
 
-accelerate>=0.28.0
-einops>=0.7.0
-matplotlib>=3.7.0
-numpy>=1.23.5
-pandas>=1.5.3
-scikit_learn>=1.2.2
-scipy>=1.12.0
-tqdm>=4.65.0
-peft>=0.4.0
-transformers>=4.31.0
-accelerate
-
-deepspeed>=0.14.0
+accelerate==0.28.0
+einops==0.7.0
+matplotlib==3.7.0
+numpy<2.0.0
+pandas<2.0.0
+scikit_learn<2.0.0
+scipy<2.0.0
+tqdm<5.0.0
+peft==0.4.0
+transformers<5.0.0
+deepspeed<1.0.0
 sentencepiece>=0.2.0
