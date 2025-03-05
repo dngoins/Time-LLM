@@ -13,3 +13,8 @@ share/*
 # ignore all *.bat in scripts directory
 scripts/
 *.bat
+
+# ignore all pythong virtual environment files
+venv/*
+
+pyvenv.cfg
