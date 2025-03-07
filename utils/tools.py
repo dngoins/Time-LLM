@@ -77,7 +77,7 @@ class EarlyStopping:
                     f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
 
         from datetime import datetime
-        current_date = datetime.now().strftime("%d-%y-%m")
+        current_date = datetime.now().strftime("%d-%m-%y")
         checkpoint_name = f"{current_date}-{self.counter}.pt"
 
         if self.accelerator is not None:
