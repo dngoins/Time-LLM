@@ -76,11 +76,15 @@ class EarlyStopping:
                 print(
                     f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
 
+        from datetime import datetime
+        current_date = datetime.now().strftime("%d-%y-%m")
+        checkpoint_name = f"{current_date}-{self.counter}.pt"
+
         if self.accelerator is not None:
             model = self.accelerator.unwrap_model(model)
-            torch.save(model.state_dict(), path + '/' + 'checkpoint')
+            torch.save(model.state_dict(), path + '/' + checkpoint_name)
         else:
-            torch.save(model.state_dict(), path + '/' + 'checkpoint')
+            torch.save(model.state_dict(), path + '/' + checkpoint_name)
         self.val_loss_min = val_loss
 
 
