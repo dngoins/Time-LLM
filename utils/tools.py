@@ -2,6 +2,9 @@ import numpy as np
 import torch
 import matplotlib.pyplot as plt
 import shutil
+import io
+from azure.identity import DefaultAzureCredential
+from azure.storage.blob import BlobServiceClient
 
 from tqdm import tqdm
 
@@ -77,14 +80,40 @@ class EarlyStopping:
                     f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
 
         from datetime import datetime
-        current_date = datetime.now().strftime("%d-%m-%y")
-        checkpoint_name = f"{current_date}-{self.counter}.pt"
+        current_date = datetime.now().strftime("%d-%y-%m")
+        checkpoint_name = f"{current_date}-{self.counter}.checkpoint"
 
+        # Get model state dict
         if self.accelerator is not None:
             model = self.accelerator.unwrap_model(model)
+        
+        # Save to BytesIO buffer
+        buffer = io.BytesIO()
+        torch.save(model.state_dict(), buffer)
+        buffer.seek(0)
+
+        # Upload to Azure Blob Storage
+        try:
+            # Get connection string from environment
+            from google.colab import userdata
+            connection_string = userdata.get('AZURE_STORAGE_CONNECTION_STRING')
+            
+            # Create the BlobServiceClient using connection string
+            blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+            container_name = "models"
+            
+            # Get blob client and upload
+            blob_client = blob_service_client.get_container_client(container_name).get_blob_client(checkpoint_name)
+            blob_client.upload_blob(buffer.getvalue(), overwrite=True)
+            
+            if self.verbose:
+                print(f"Model checkpoint uploaded to blob storage as {checkpoint_name}")
+        
+        except Exception as e:
+            print(f"Failed to upload to blob storage: {str(e)}")
+            # Fallback to local save
             torch.save(model.state_dict(), path + '/' + checkpoint_name)
-        else:
-            torch.save(model.state_dict(), path + '/' + checkpoint_name)
+        
         self.val_loss_min = val_loss
 
 
