@@ -22,5 +22,7 @@ pyvenv.cfg
 .vs
 .vs/*
 
+.env
+
 env/*
 TimeLLM-env/*
