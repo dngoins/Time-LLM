@@ -18,3 +18,9 @@ scripts/
 venv/*
 
 pyvenv.cfg
+
+.vs
+.vs/*
+
+env/*
+TimeLLM-env/*
