@@ -80,8 +80,11 @@ class EarlyStopping:
                     f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
 
         from datetime import datetime
-        current_date = datetime.now().strftime("%d-%y-%m")
-        checkpoint_name = f"{current_date}-{self.counter}.checkpoint"
+        current_date = datetime.now().strftime("%d-%m-%y")
+
+        # remove all '/' and '\' from path and store in pathname var
+        pathname = path.replace('/', '_').replace('\\', '_')
+        checkpoint_name = f"{current_date}-{pathname}.checkpoint"
 
         # Get model state dict
         if self.accelerator is not None:
