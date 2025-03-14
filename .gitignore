@@ -35,3 +35,5 @@ __pycache__/*
 
 checkpoints/*
 **/checkpoints/*
+
+web/__pycache__/*
