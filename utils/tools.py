@@ -84,7 +84,7 @@ class EarlyStopping:
 
         # remove all '/' and '\' from path and store in pathname var
         pathname = path.replace('/', '_').replace('\\', '_')
-        checkpoint_name = f"{current_date}-{pathname}.checkpoint"
+        checkpoint_name = f"{current_date}-{pathname}.pt"
 
         # Get model state dict
         if self.accelerator is not None:

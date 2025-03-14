@@ -105,8 +105,9 @@ accelerator = Accelerator(kwargs_handlers=[ddp_kwargs], deepspeed_plugin=deepspe
 
 for ii in range(args.itr):
     # setting record of experiments
-    setting = '{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_{}_{}'.format(
+    setting = '{}_{}_{}_{}_{}_ft{}_sl{}_ll{}_pl{}_dm{}_nh{}_el{}_dl{}_df{}_fc{}_eb{}_{}_{}'.format(
         args.task_name,
+        args.llm_model,
         args.model_id,
         args.model,
         args.data,
