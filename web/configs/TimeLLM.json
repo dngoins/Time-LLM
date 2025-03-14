@@ -8,6 +8,20 @@
     "learning_rate": 0.001,
     "batch_size": 64,
     "num_epochs": 100,
-    "task_name": "long_term_forecast"
-    
+    "task_name": "long_term_forecast",
+    "sequence_length": 30,
+    "optimizer": "adam",
+    "loss_function": "mse",
+    "pred_len": 192,
+    "seq_len": 512,
+    "enc_in": 7,
+    "d_ff": 128,
+    "llm_dim": 4096,
+    "llm_model": "LLAMA",
+    "patch_len": 16,
+    "stride": 8,
+    "llm_layers": 32,
+    "prompt_domain": 0,
+    "d_model": 32,
+    "n_heads": 8
 }
