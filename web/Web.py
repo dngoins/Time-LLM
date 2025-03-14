@@ -99,7 +99,7 @@ class TimeLLMPredictor:
                 f.write(blob_client.download_blob().readall())
         
         checkpoint = torch.load(local_checkpoint_path, map_location=self.device)
-        self.model.load_state_dict(checkpoint['model_state_dict'])
+        self.model.load_state_dict(checkpoint['state_dict'])
         self.model.eval()
         print("Model loaded successfully\nWeb server running...\n")
 
