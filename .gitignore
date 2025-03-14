@@ -26,3 +26,5 @@ pyvenv.cfg
 
 env/*
 TimeLLM-env/*
+
+__pychache__/*
