@@ -81,21 +81,24 @@ class TimeLLMPredictor:
 
         args = parser.parse_args()
         self.config = args
-        print(f'Configuration: {self.config}')
-
+        
         # Initialize model
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.model = TimeLLM(self.config).to(self.device)
         
-        # Load checkpoint from Azure Blob Storage
-        connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-        if not connection_string:
-            raise ValueError("AZURE_STORAGE_CONNECTION_STRING environment variable not set")
+        # Load checkpoint from local file or Azure Blob Storage
+        local_checkpoint_path = 'checkpoints/model.pt'
+        if not os.path.exists(local_checkpoint_path):
+            connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+            if not connection_string:
+                raise ValueError("AZURE_STORAGE_CONNECTION_STRING environment variable not set")
+            
+            blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+            blob_client = blob_service_client.get_blob_client(container="models", blob="13-25-03-0.checkpoint")
+            with open(local_checkpoint_path, "wb") as f:
+                f.write(blob_client.download_blob().readall())
         
-        blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-        blob_client = blob_service_client.get_blob_client(container="models", blob="13-25-03-0.checkpoint")
-                
-        checkpoint = torch.load(blob_client.download_blob().readall(), map_location=self.device)
+        checkpoint = torch.load(local_checkpoint_path, map_location=self.device)
         self.model.load_state_dict(checkpoint['model_state_dict'])
         self.model.eval()
         print("Model loaded successfully\nWeb server running...\n")
