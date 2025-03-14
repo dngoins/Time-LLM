@@ -32,3 +32,5 @@ __pycache__/*
 
 # ignore all files in any subdirectory named __pycache__
 **/__pycache__/*
+
+checkpoints/*
