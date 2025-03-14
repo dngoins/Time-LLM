@@ -27,4 +27,5 @@ pyvenv.cfg
 env/*
 TimeLLM-env/*
 
-__pychache__/*
+# ignore all files in any directory named __pycache__
+__pycache__/*
