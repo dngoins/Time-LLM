@@ -11,12 +11,13 @@ payload = {
     "prediction_length": 24
 }
 
-# Send request
-response = requests.post(
-    "http://localhost:8000/predict",
-    json=payload
-)
 
+# Make prediction
+response = requests.post("http://localhost:8000/predict", json=data)
+print(response.json())
+
+# View plot
+response = requests.get("http://localhost:8000/plot")
 print(response.json())
 
 

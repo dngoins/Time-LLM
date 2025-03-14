@@ -29,3 +29,6 @@ TimeLLM-env/*
 
 # ignore all files in any directory named __pycache__
 __pycache__/*
+
+# ignore all files in any subdirectory named __pycache__
+**/__pycache__/*
